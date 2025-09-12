@@ -1,4 +1,4 @@
-package com.nazam.todo_clean.domain
+package com.nazam.todo_clean.domain.model
 
 
 data class Task(
