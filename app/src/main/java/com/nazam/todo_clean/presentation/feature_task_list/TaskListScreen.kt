@@ -44,7 +44,8 @@ import com.nazam.todo_clean.domain.model.Task
 @Composable
 fun TaskListScreen(
     modifier: Modifier = Modifier,
-    viewModel: TaskListViewModel = hiltViewModel()
+    viewModel: TaskListViewModel = hiltViewModel(),
+    onAddClick: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -66,7 +67,7 @@ fun TaskListScreen(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /* TODO: navigate to Create/Edit */ }) {
+            FloatingActionButton(onClick = { onAddClick() }) {
                 Text("+")
             }
         }
