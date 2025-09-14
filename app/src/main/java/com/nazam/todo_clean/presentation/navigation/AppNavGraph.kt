@@ -34,6 +34,9 @@ fun AppNavGraph() {
                 onAddClick = {
                     val noId = -1
                     navController.navigate("task_edit?taskId=$noId")
+                },
+                onItemClick = { id ->
+                    navController.navigate("task_detail?taskId=$id")
                 }
             )
         }

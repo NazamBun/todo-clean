@@ -48,7 +48,8 @@ import com.nazam.todo_clean.domain.model.Task
 fun TaskListScreen(
     modifier: Modifier = Modifier,
     viewModel: TaskListViewModel = hiltViewModel(),
-    onAddClick: () -> Unit = {}
+    onAddClick: () -> Unit = {},
+    onItemClick: (Int) -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -117,7 +118,7 @@ fun TaskListScreen(
                             TaskItem(
                                 task = task,
                                 onDelete = { viewModel.onDeleteClicked(task.id) },
-                                onClick = { /* TODO: open details or edit */ }
+                                onClick = { onItemClick(task.id) }
                             )
                         }
                     }
