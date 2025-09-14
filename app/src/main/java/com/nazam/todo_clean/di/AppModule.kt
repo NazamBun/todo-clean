@@ -8,6 +8,7 @@ import com.nazam.todo_clean.data.repository.TaskRepositoryImpl
 import com.nazam.todo_clean.domain.repository.TaskRepository
 import com.nazam.todo_clean.domain.usecase.AddTaskUseCase
 import com.nazam.todo_clean.domain.usecase.DeleteTaskUseCase
+import com.nazam.todo_clean.domain.usecase.GetTaskByIdUseCase
 import com.nazam.todo_clean.domain.usecase.GetTasksUseCase
 import com.nazam.todo_clean.domain.usecase.SearchTasksUseCase
 import com.nazam.todo_clean.domain.usecase.UpdateTaskUseCase
@@ -49,7 +50,7 @@ object AppModule {
     @Provides fun provideGetTasksUseCase(repo: TaskRepository) = GetTasksUseCase(repo)
     @Provides fun provideUpdateTaskUseCase(repo: TaskRepository) = UpdateTaskUseCase(repo)
     @Provides fun provideDeleteTaskUseCase(repo: TaskRepository) = DeleteTaskUseCase(repo)
-
     @Provides fun provideSearchTasksUseCase(repo: TaskRepository) = SearchTasksUseCase(repo)
+    @Provides fun provideGetTaskByIdUseCase(repo: TaskRepository) = GetTaskByIdUseCase(repo)
 }
 
