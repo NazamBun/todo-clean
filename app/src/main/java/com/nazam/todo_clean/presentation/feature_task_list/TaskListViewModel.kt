@@ -6,6 +6,7 @@ import com.nazam.todo_clean.domain.model.Task
 import com.nazam.todo_clean.domain.usecase.DeleteTaskUseCase
 import com.nazam.todo_clean.domain.usecase.GetTasksUseCase
 import com.nazam.todo_clean.domain.usecase.SearchTasksUseCase
+import com.nazam.todo_clean.domain.usecase.SetTaskDoneUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,7 +33,8 @@ import javax.inject.Inject
 class TaskListViewModel @Inject constructor(
     private val getTasks: GetTasksUseCase,
     private val searchTasks: SearchTasksUseCase,
-    private val deleteTask: DeleteTaskUseCase
+    private val deleteTask: DeleteTaskUseCase,
+    private val setTaskDone: SetTaskDoneUseCase
 ) : ViewModel() {
 
     private val query = MutableStateFlow("")
@@ -73,6 +75,16 @@ class TaskListViewModel @Inject constructor(
                 deleteTask(id)
             } catch (e: Exception) {
                 _uiState.update { it.copy(error = e.message ?: "Delete failed") }
+            }
+        }
+    }
+
+    fun onDoneChanged(task: Task, done: Boolean) {
+        viewModelScope.launch {
+            try {
+                setTaskDone(task, done)
+            } catch (e: Exception) {
+                _uiState.update { it.copy(error = e.message ?: "Update failed") }
             }
         }
     }
