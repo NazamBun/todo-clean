@@ -11,6 +11,7 @@ import com.nazam.todo_clean.domain.usecase.DeleteTaskUseCase
 import com.nazam.todo_clean.domain.usecase.GetTaskByIdUseCase
 import com.nazam.todo_clean.domain.usecase.GetTasksUseCase
 import com.nazam.todo_clean.domain.usecase.SearchTasksUseCase
+import com.nazam.todo_clean.domain.usecase.SetTaskDoneUseCase
 import com.nazam.todo_clean.domain.usecase.UpdateTaskUseCase
 import dagger.Module
 import dagger.Provides
@@ -52,5 +53,6 @@ object AppModule {
     @Provides fun provideDeleteTaskUseCase(repo: TaskRepository) = DeleteTaskUseCase(repo)
     @Provides fun provideSearchTasksUseCase(repo: TaskRepository) = SearchTasksUseCase(repo)
     @Provides fun provideGetTaskByIdUseCase(repo: TaskRepository) = GetTaskByIdUseCase(repo)
+    @Provides fun provideSetTaskDoneUseCase(repo: TaskRepository) = SetTaskDoneUseCase(repo)
 }
 
