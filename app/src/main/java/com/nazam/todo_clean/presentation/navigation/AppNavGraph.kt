@@ -8,6 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.nazam.todo_clean.presentation.feature_task_detail.TaskDetailScreen
+import com.nazam.todo_clean.presentation.feature_task_detail.TaskDetailViewModel
 import com.nazam.todo_clean.presentation.feature_task_edit.TaskEditScreen
 import com.nazam.todo_clean.presentation.feature_task_edit.TaskEditViewModel
 import com.nazam.todo_clean.presentation.feature_task_list.TaskListScreen
@@ -15,6 +17,7 @@ import com.nazam.todo_clean.presentation.feature_task_list.TaskListScreen
 object Routes {
     const val TASK_LIST = "task_list"
     const val TASK_EDIT = "task_edit?taskId={taskId}"
+    const val TASK_DETAIL = "task_detail?taskId={taskId}"
 }
 
 @Composable
@@ -63,6 +66,24 @@ fun AppNavGraph() {
                     vm.saveTask(taskId, title, desc, priority)
                 },
                 onBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = Routes.TASK_DETAIL,
+            arguments = listOf(
+                navArgument("taskId") {
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ) {
+            val vm: TaskDetailViewModel = hiltViewModel()
+            val state = vm.uiState.collectAsState()
+
+            TaskDetailScreen(
+                task = state.value.task,
+                onBack = { navController.popBackStack() },
+                onEdit = { id -> navController.navigate("task_edit?taskId=$id") }
             )
         }
     }
