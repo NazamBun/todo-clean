@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -118,7 +119,8 @@ fun TaskListScreen(
                             TaskItem(
                                 task = task,
                                 onDelete = { viewModel.onDeleteClicked(task.id) },
-                                onClick = { onItemClick(task.id) }
+                                onClick = { onItemClick(task.id) },
+                                onDoneChange = { done -> viewModel.onDoneChanged(task, done) }
                             )
                         }
                     }
@@ -133,6 +135,7 @@ private fun TaskItem(
     task: Task,
     onDelete: () -> Unit,
     onClick: () -> Unit,
+    onDoneChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -172,6 +175,14 @@ private fun TaskItem(
 
             Spacer(Modifier.width(8.dp))
 
+            // ✅ Checkbox Done / Not done
+            Checkbox(
+                checked = task.isDone,
+                onCheckedChange = { onDoneChange(it) }
+            )
+
+            Spacer(Modifier.width(8.dp))
+
             TextButton(onClick = onDelete) {
                 Text("Suppr")
             }
@@ -191,6 +202,7 @@ private fun TaskItemPreview() {
             isDone = false
         ),
         onDelete = {},
-        onClick = {}
+        onClick = {},
+        onDoneChange = {}
     )
 }
